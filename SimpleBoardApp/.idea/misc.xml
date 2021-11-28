@@ -6,8 +6,11 @@
         <entry key="..\:/Coding/SimpleBoardApp/SimpleBoardApp/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.195703125" />
         <entry key="..\:/Coding/SimpleBoardApp/SimpleBoardApp/app/src/main/res/layout-w936dp/activity_login.xml" value="0.1711065573770492" />
         <entry key="..\:/Coding/SimpleBoardApp/SimpleBoardApp/app/src/main/res/layout/activity_login.xml" value="0.2078804347826087" />
-        <entry key="..\:/Coding/SimpleBoardApp/SimpleBoardApp/app/src/main/res/layout/activity_main.xml" value="0.23958333333333334" />
+        <entry key="..\:/Coding/SimpleBoardApp/SimpleBoardApp/app/src/main/res/layout/activity_main.xml" value="0.36564102564102563" />
+        <entry key="..\:/Coding/SimpleBoardApp/SimpleBoardApp/app/src/main/res/layout/activity_user.xml" value="0.18059777102330293" />
         <entry key="..\:/Coding/SimpleBoardApp/SimpleBoardApp/app/src/main/res/layout/fragment_item_detail.xml" value="0.2269021739130435" />
+        <entry key="..\:/Coding/SimpleBoardApp/SimpleBoardApp/app/src/main/res/layout/fragment_login.xml" value="0.36564102564102563" />
+        <entry key="..\:/Coding/SimpleBoardApp/SimpleBoardApp/app/src/main/res/layout/fragment_register.xml" value="0.37135416666666665" />
         <entry key="..\:/Coding/SimpleBoardApp/SimpleBoardApp/app/src/main/res/layout/item_list_content.xml" value="0.2269021739130435" />
       </map>
     </option>
