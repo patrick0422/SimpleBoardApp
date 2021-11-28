@@ -1,6 +1,8 @@
 package com.example.simpleboardapp.di
 
-import com.example.simpleboardapp.data.network.UserApi
+import com.example.simpleboardapp.data.comment.CommentApi
+import com.example.simpleboardapp.data.post.PostApi
+import com.example.simpleboardapp.data.user.UserApi
 import com.example.simpleboardapp.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -50,5 +52,14 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideApiService(retrofit: Retrofit): UserApi = retrofit.create(UserApi::class.java)
+    fun provideUserApiService(retrofit: Retrofit): UserApi = retrofit.create(UserApi::class.java)
+
+    @Singleton
+    @Provides
+    fun providePostApiService(retrofit: Retrofit): PostApi = retrofit.create(PostApi::class.java)
+
+    @Singleton
+    @Provides
+    fun provideCommentApiService(retrofit: Retrofit): CommentApi = retrofit.create(CommentApi::class.java)
+
 }
