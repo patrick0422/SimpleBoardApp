@@ -1,10 +1,9 @@
 package com.example.simpleboardapp.ui.user.login
 
+import android.app.Application
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import com.example.simpleboardapp.data.DataStoreRepository
 import com.example.simpleboardapp.data.user.UserDataSource
 import com.example.simpleboardapp.data.user.login.LoginRequest
 import com.example.simpleboardapp.data.user.login.LoginResponse
@@ -16,9 +15,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val user: UserDataSource
-): ViewModel() {
-
+    appication: Application,
+    private val userDataSource: UserDataSource,
+    private val dataStoreRepository: DataStoreRepository
+): AndroidViewModel(appication) {
     private val _loginResponse: MutableLiveData<NetworkResult<LoginResponse>> = MutableLiveData()
     val loginResponse: LiveData<NetworkResult<LoginResponse>>
         get() = _loginResponse
@@ -28,7 +28,7 @@ class LoginViewModel @Inject constructor(
         _loginResponse.value = NetworkResult.Loading()
 
         _loginResponse.value = try {
-            val response = user.login(loginRequest)
+            val response = userDataSource.login(loginRequest)
 
             if (response.isSuccessful && response.body() != null)
                 NetworkResult.Success(response.body()!!)
@@ -39,5 +39,9 @@ class LoginViewModel @Inject constructor(
             Log.d(Constants.TAG, "login: ${e.stackTraceToString()}")
             NetworkResult.Error(e.stackTraceToString())
         }
+    }
+
+    fun saveUserToken(userToken: String) = viewModelScope.launch {
+        dataStoreRepository.saveUserToken(userToken)
     }
 }

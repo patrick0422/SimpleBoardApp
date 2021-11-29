@@ -26,10 +26,6 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
         }
     }
 
-    private fun onRegisterSucceed() {
-
-    }
-
     private fun getRegisterRequest(): RegisterRequest = with(binding) {
         RegisterRequest(
             email = editEmail.text.toString(),
@@ -60,8 +56,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
             when (response) {
                 is NetworkResult.Success -> {
                     showLoading(false)
-                    showToast("회원가입 성공! Current Time: ${response.data!!.createdAt}")
-                    onRegisterSucceed()
+
+                    val userToken = response.data!!.token
+                    registerViewModel.saveUserToken(userToken)
+                    showToast("회원가입 성공! Token: $userToken")
                 }
                 is NetworkResult.Error -> {
                     showLoading(false)
