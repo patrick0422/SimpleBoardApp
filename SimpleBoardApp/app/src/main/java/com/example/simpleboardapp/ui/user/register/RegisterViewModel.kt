@@ -7,8 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.simpleboardapp.data.user.UserDataSource
 import com.example.simpleboardapp.data.user.register.RegisterRequest
-import com.example.simpleboardapp.data.user.register.RegisterResult
+import com.example.simpleboardapp.data.user.register.RegisterResponse
 import com.example.simpleboardapp.util.Constants
+import com.example.simpleboardapp.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -18,23 +19,24 @@ class RegisterViewModel @Inject constructor(
     private val user: UserDataSource
 ): ViewModel() {
 
-    private val _registerResponse: MutableLiveData<RegisterResult> = MutableLiveData()
-    val registerResponse: LiveData<RegisterResult>
+    private val _registerResponse: MutableLiveData<NetworkResult<RegisterResponse>> = MutableLiveData()
+    val registerResponse: LiveData<NetworkResult<RegisterResponse>>
         get() = _registerResponse
 
 
     fun register(registerRequest: RegisterRequest) = viewModelScope.launch {
-        val response = user.register(registerRequest)
+        _registerResponse.value = NetworkResult.Loading()
 
         _registerResponse.value = try {
+            val response = user.register(registerRequest)
+
             if (response.isSuccessful && response.body() != null) {
-                RegisterResult("Succeed!", response.body())
+                NetworkResult.Success(response.body()!!)
             } else {
-                RegisterResult(response.message(), null)
+                NetworkResult.Error(response.message())
             }
         } catch (e: Exception) {
-            Log.d(Constants.TAG, "register: ${e.stackTraceToString()}")
-            RegisterResult(e.stackTraceToString(), null)
+            NetworkResult.Error(e.stackTraceToString())
         }
     }
 }
