@@ -1,5 +1,3 @@
 package com.example.simpleboardapp.data.post
 
-class PostResponse {
-
-}
+data class SearchRequest()
