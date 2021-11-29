@@ -21,4 +21,6 @@
     <string name="login_now"><u>Already have an account?</u></string>
     <string name="confirm_password">Confirm Password</string>
     <string name="nickname">Nickname</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
