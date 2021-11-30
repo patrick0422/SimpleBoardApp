@@ -9,7 +9,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class UserActivity : BaseActivity<ActivityUserBinding>(R.layout.activity_user) {
-    
 
     override fun init() {
 
