@@ -28,9 +28,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 Toast.makeText(this, "먼저 로그인 해 주세요", Toast.LENGTH_SHORT).show()
                 finish()
             } else {
-                binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
                 Toast.makeText(this, "토큰 값이 있습니다: $token", Toast.LENGTH_SHORT).show()
             }
         })
+
+        binding.buttonLogout.setOnClickListener {
+            mainViewModel.deleteUserToken()
+        }
     }
 }
