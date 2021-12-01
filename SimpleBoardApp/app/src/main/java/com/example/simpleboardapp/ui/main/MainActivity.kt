@@ -20,7 +20,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun init() {
-        mainViewModel.getUserToken()
+        if (mainViewModel.userToken.value.isNullOrBlank()) {
+            mainViewModel.getUserToken()
+        }
 
         mainViewModel.userToken.observe(this, { token ->
             if (token.isBlank()) {

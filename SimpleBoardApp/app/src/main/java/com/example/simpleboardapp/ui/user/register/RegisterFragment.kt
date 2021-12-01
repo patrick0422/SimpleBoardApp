@@ -1,11 +1,13 @@
 package com.example.simpleboardapp.ui.user.register
 
+import android.content.Intent
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.simpleboardapp.R
 import com.example.simpleboardapp.data.user.register.RegisterRequest
 import com.example.simpleboardapp.databinding.FragmentRegisterBinding
+import com.example.simpleboardapp.ui.main.MainActivity
 import com.example.simpleboardapp.ui.user.UserViewModel
 import com.example.simpleboardapp.util.BaseFragment
 import com.example.simpleboardapp.util.NetworkResult
@@ -62,6 +64,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
                     val userToken = response.data!!.token
                     userViewModel.saveUserToken(userToken)
                     showToast("회원가입 성공! Token: $userToken")
+                    startActivity(Intent(context, MainActivity::class.java))
+                    activity?.finish()
                 }
                 is NetworkResult.Error -> {
                     loading(false)
