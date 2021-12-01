@@ -27,15 +27,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
         mainViewModel.userToken.observe(this, { token ->
             if (token.isBlank()) {
                 startActivity(Intent(this, UserActivity::class.java))
-                Toast.makeText(this, "먼저 로그인 해 주세요", Toast.LENGTH_SHORT).show()
                 finish()
             } else {
-                Toast.makeText(this, "토큰 값이 있습니다: $token", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, "토큰 값이 있습니다: $token", Toast.LENGTH_SHORT).show()
             }
         })
-
-        binding.buttonLogout.setOnClickListener {
-            mainViewModel.deleteUserToken()
-        }
     }
 }

@@ -2,12 +2,14 @@ package com.example.simpleboardapp.ui.main.postlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.simpleboardapp.data.post.Post
 import com.example.simpleboardapp.databinding.PostListItemBinding
+import com.example.simpleboardapp.util.PostListDiffUtil
 
 class PostListAdapter() : RecyclerView.Adapter<PostListAdapter.PostListViewHolder>() {
-    val postList: List<Post> = emptyList()
+    var postList: List<Post> = emptyList()
 
     class PostListViewHolder(private val binding: PostListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(post: Post) = binding.apply {
@@ -30,4 +32,12 @@ class PostListAdapter() : RecyclerView.Adapter<PostListAdapter.PostListViewHolde
     }
 
     override fun getItemCount(): Int = postList.size
+
+    fun setData(newData: List<Post>) {
+        val postListDiffUtil = PostListDiffUtil(postList, newData)
+        val diffUtilResult = DiffUtil.calculateDiff(postListDiffUtil)
+
+        postList = newData
+        diffUtilResult.dispatchUpdatesTo(this)
+    }
 }

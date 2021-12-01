@@ -59,7 +59,11 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 is NetworkResult.Error -> {
                     loading(false)
 
-                    Log.d(TAG, "onLogin: ${response.message}")
+                    if (response.message!!.contains("End of input at line 1 column 1 path \$")) {
+                        showToast("계정 정보를 다시 확인해주세요.")
+                    } else {
+                        Log.d(TAG, "onLogin: ${response.message}")
+                    }
                 }
                 is NetworkResult.Loading -> {
                     loading(true)
