@@ -17,11 +17,10 @@ import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
 
+private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = PREFERENCES_NAME)
+
 @ActivityRetainedScoped
-class DataStoreRepository @Inject constructor(
-    @ApplicationContext private val context: Context
-) {
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = PREFERENCES_NAME)
+class DataStoreRepository @Inject constructor(@ApplicationContext private val context: Context) {
 
     private object PreferenceKeys {
         val userToken = stringPreferencesKey(name = PREFERENCES_USER_TOKEN)
