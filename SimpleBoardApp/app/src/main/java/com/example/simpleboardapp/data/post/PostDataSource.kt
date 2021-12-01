@@ -6,7 +6,7 @@ import javax.inject.Inject
 class PostDataSource @Inject constructor(
     private val postApi: PostApi
 ) {
-    suspend fun getPosts(searchRequest: SearchRequest): Response<List<Post>> = postApi.getPosts(searchRequest)
+    suspend fun getPosts(searchRequest: SearchRequest): Response<List<Post>> = postApi.getPosts(searchRequest.page, searchRequest.keyword)
 
     suspend fun getPost(id: Int): Response<Post> = postApi.getPost(id)
 
