@@ -130,4 +130,8 @@ class MainViewModel @Inject constructor(
     fun saveUserToken() = viewModelScope.launch {
         dataStoreRepository.saveUserToken(userToken.value ?: "")
     }
+
+    fun deleteUserToken() = viewModelScope.launch {
+        dataStoreRepository.saveUserToken("")
+    }
 }
