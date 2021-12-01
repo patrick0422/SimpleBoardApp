@@ -6,12 +6,14 @@ import androidx.navigation.findNavController
 import com.example.simpleboardapp.R
 import com.example.simpleboardapp.data.user.register.RegisterRequest
 import com.example.simpleboardapp.databinding.FragmentRegisterBinding
+import com.example.simpleboardapp.ui.user.UserViewModel
 import com.example.simpleboardapp.util.BaseFragment
 import com.example.simpleboardapp.util.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment_register) {
+    private val userViewModel: UserViewModel by viewModels()
     private val registerViewModel: RegisterViewModel by viewModels()
 
     override fun init() {
@@ -55,24 +57,25 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
         registerViewModel.registerResponse.observe(this, { response ->
             when (response) {
                 is NetworkResult.Success -> {
-                    showLoading(false)
+                    loading(false)
 
                     val userToken = response.data!!.token
-                    registerViewModel.saveUserToken(userToken)
+                    userViewModel.saveUserToken(userToken)
                     showToast("회원가입 성공! Token: $userToken")
                 }
                 is NetworkResult.Error -> {
-                    showLoading(false)
+                    loading(false)
                     showToast("회원가입 실패! Message: ${response.message}")
                 }
                 is NetworkResult.Loading -> {
-                    showLoading(true)
+                    loading(true)
                 }
             }
         })
     }
 
-    private fun showLoading(boolean: Boolean) {
+    private fun loading(boolean: Boolean) {
         binding.progressBar.visibility = if (boolean) View.VISIBLE else View.GONE
+        binding.buttonRegister.isClickable = !boolean
     }
 }

@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import com.example.simpleboardapp.R
 import com.example.simpleboardapp.data.user.login.LoginRequest
 import com.example.simpleboardapp.databinding.FragmentLoginBinding
+import com.example.simpleboardapp.ui.user.UserViewModel
 import com.example.simpleboardapp.util.BaseFragment
 import com.example.simpleboardapp.util.Constants.Companion.TAG
 import com.example.simpleboardapp.util.NetworkResult
@@ -14,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
+    private val userViewModel: UserViewModel by viewModels()
     private val loginViewModel: LoginViewModel by viewModels()
 
     override fun init() {
@@ -35,32 +37,33 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         if (email.isBlank() || password.isBlank())
             showToast("정보를 모두 입력해주세요.")
 
-        showLoading(true)
+        loading(true)
         loginViewModel.login(LoginRequest(email, password))
 
         loginViewModel.loginResponse.observe(this, { response ->
             when (response) {
                 is NetworkResult.Success -> {
-                    showLoading(false)
+                    loading(false)
 
                     val userToken = response.data!!.token
-                    loginViewModel.saveUserToken(userToken)
+                    userViewModel.saveUserToken(userToken)
 
                     showToast("로그인 성공! Token: $userToken")
                 }
                 is NetworkResult.Error -> {
-                    showLoading(false)
+                    loading(false)
 
                     Log.d(TAG, "onLogin: ${response.message}")
                 }
                 is NetworkResult.Loading -> {
-                    showLoading(true)
+                    loading(true)
                 }
             }
         })
     }
 
-    private fun showLoading(boolean: Boolean) {
+    private fun loading(boolean: Boolean) {
         binding.progressBar.visibility = if (boolean) View.VISIBLE else View.GONE
+        binding.buttonLogin.isClickable = !boolean
     }
 }
