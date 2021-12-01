@@ -1,6 +1,5 @@
 package com.example.simpleboardapp.ui.user.login
 
-import android.app.Application
 import android.util.Log
 import androidx.lifecycle.*
 import com.example.simpleboardapp.data.DataStoreRepository
@@ -15,10 +14,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    appication: Application,
     private val userDataSource: UserDataSource,
     private val dataStoreRepository: DataStoreRepository
-): AndroidViewModel(appication) {
+): ViewModel() {
     private val _loginResponse: MutableLiveData<NetworkResult<LoginResponse>> = MutableLiveData()
     val loginResponse: LiveData<NetworkResult<LoginResponse>>
         get() = _loginResponse
