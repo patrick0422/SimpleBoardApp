@@ -1,11 +1,7 @@
 package com.example.simpleboardapp.ui.main.postlist
 
-import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.simpleboardapp.R
@@ -34,25 +30,23 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment
         binding.swipeRefreshLayout.setOnRefreshListener {
             getPosts()
         }
-
-        if (mAdapter.postList.isEmpty())
-            getPosts()
     }
 
     override fun onResume() {
         super.onResume()
-
         getPosts()
     }
 
     private fun getPosts() {
+        isLoading(true)
         mainViewModel.getPosts(SearchRequest(1, ""))
 
         mainViewModel.getPostsResponse.observe(this, { response ->
             when (response) {
                 is NetworkResult.Success -> {
-                    mAdapter.setData(response.data!!.asReversed()) // 최신 글 순으로
-                    Log.d(TAG, response.data.toString())
+                    val list = response.data!!.asReversed() // 최신 글 순으로
+                    if (mAdapter.postList != list)
+                        mAdapter.setData(list)
                     isLoading(false)
                 }
                 is NetworkResult.Error -> {
