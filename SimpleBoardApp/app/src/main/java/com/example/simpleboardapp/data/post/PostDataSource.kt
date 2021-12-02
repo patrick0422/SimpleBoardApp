@@ -10,9 +10,9 @@ class PostDataSource @Inject constructor(
 
     suspend fun getPost(id: Int): Response<Post> = postApi.getPost(id)
 
-    suspend fun addPost(post: PostRequest) = postApi.addPost(post)
+    suspend fun addPost(token: String, post: PostRequest) = postApi.addPost(token, post)
 
-    suspend fun editPost(id: Int, post: PostRequest): Response<Post> = postApi.editPost(id, post)
+    suspend fun editPost(token: String, id: Int, post: PostRequest): Response<Post> = postApi.editPost(token, id, post)
 
-    suspend fun deletePost(id: Int): Response<Post> = postApi.deletePost(id)
+    suspend fun deletePost(token: String, id: Int): Response<Post> = postApi.deletePost(token, id)
 }

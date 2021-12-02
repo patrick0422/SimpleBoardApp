@@ -11,11 +11,11 @@ interface PostApi {
     suspend fun getPost(@Path(value = "id") id: Int): Response<Post>
 
     @PATCH("/post/{id}")
-    suspend fun editPost(@Path(value = "id") id: Int, @Body post: PostRequest): Response<Post>
+    suspend fun editPost(@Header("Authorization") token: String, @Path(value = "id") id: Int, @Body post: PostRequest): Response<Post>
 
     @DELETE("/post/{id}")
-    suspend fun deletePost(@Path(value = "id") id: Int): Response<Post>
+    suspend fun deletePost(@Header("Authorization") token: String, @Path(value = "id") id: Int): Response<Post>
 
     @POST("/post")
-    suspend fun addPost(@Body post: PostRequest): Response<Post>
+    suspend fun addPost(@Header("Authorization") token: String, @Body post: PostRequest): Response<Post>
 }
