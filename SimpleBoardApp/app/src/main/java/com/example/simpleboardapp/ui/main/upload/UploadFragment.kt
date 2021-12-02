@@ -2,6 +2,7 @@ package com.example.simpleboardapp.ui.main.upload
 
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.example.simpleboardapp.R
@@ -44,6 +45,7 @@ class UploadFragment : BaseFragment<FragmentUploadBinding>(R.layout.fragment_upl
                     showToast("성공!")
                     isLoading(false)
                     activity!!.supportFragmentManager.popBackStack()
+                    (activity!! as FragmentActivity).onBackPressed() // TODO
                 }
                 is NetworkResult.Error -> {
                     Log.d(TAG, "uploadPost: ${response.message!!}")
