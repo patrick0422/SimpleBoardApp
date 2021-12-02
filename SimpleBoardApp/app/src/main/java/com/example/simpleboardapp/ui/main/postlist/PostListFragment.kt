@@ -67,7 +67,13 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment
         })
     }
     
-    private fun isLoading(boolean: Boolean) {
-
+    private fun isLoading(loading: Boolean) {
+        if (loading) {
+            binding.shimmerView.showShimmer()
+            binding.postView.visibility = View.GONE
+        } else {
+            binding.shimmerView.hideShimmer()
+            binding.postView.visibility = View.VISIBLE
+        }
     }
 }

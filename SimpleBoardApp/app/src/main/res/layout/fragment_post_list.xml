@@ -11,6 +11,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.main.postlist.PostListFragment">
+
+        <com.todkars.shimmer.ShimmerRecyclerView
+            android:id="@+id/shimmerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:shimmer_recycler_item_count="8"
+            app:shimmer_recycler_layout="@layout/post_list_placeholder" />
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="0dp"
@@ -19,13 +28,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/postView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                tools:listitem="@layout/post_list_item"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/post_list_item" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -36,9 +47,9 @@
             android:layout_marginBottom="28dp"
             android:backgroundTint="@color/simple_blue"
             android:src="@drawable/ic_add"
-            app:tint="#FFFFFF"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="#FFFFFF" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

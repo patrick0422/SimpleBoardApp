@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="simple_blue">#4444FF</color>
+    <color name="placeholder_gray">#B3B3B3</color>
 </resources>
