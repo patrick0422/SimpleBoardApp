@@ -34,6 +34,15 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment
         binding.swipeRefreshLayout.setOnRefreshListener {
             getPosts()
         }
+
+        if (mAdapter.postList.isEmpty())
+            getPosts()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        getPosts()
     }
 
     private fun getPosts() {
@@ -42,17 +51,23 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment
         mainViewModel.getPostsResponse.observe(this, { response ->
             when (response) {
                 is NetworkResult.Success -> {
-                    mAdapter.setData(response.data!!)
+                    mAdapter.setData(response.data!!.asReversed()) // 최신 글 순으로
                     Log.d(TAG, response.data.toString())
+                    isLoading(false)
                 }
                 is NetworkResult.Error -> {
                     Log.d(TAG, response.message!!)
+                    isLoading(false)
                 }
                 is NetworkResult.Loading -> {
-                    // TODO
+                    isLoading(true)
                 }
             }
             binding.swipeRefreshLayout.isRefreshing = false
         })
+    }
+    
+    private fun isLoading(boolean: Boolean) {
+
     }
 }

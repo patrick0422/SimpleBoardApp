@@ -27,4 +27,8 @@
     <string name="id_placeholder">#1</string>
     <string name="title_placeholder">대충 제목입니다.</string>
     <string name="tags_placeholder">#대충 #태그 #입니다.</string>
+    <string name="upload_title_placeholder">제목을 입력해주세요.</string>
+    <string name="upload_content_placeholder">내용을 입력해주세요.</string>
+    <string name="upload_tags_placeholder">태그를 입력해주세요. (공백으로 구분)</string>
+    <string name="submit">작성하기</string>
 </resources>

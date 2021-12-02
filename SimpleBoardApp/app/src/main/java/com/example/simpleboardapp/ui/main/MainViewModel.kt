@@ -75,7 +75,7 @@ class MainViewModel @Inject constructor(
 
     fun addPost(post: PostRequest) = viewModelScope.launch {
         _addPostResponse.value = try {
-            val response = postDataSource.addPost(post)
+            val response = postDataSource.addPost(userToken.value!!, post)
 
             if (response.isSuccessful && response.body() != null) {
                 NetworkResult.Success(response.body()!!)
@@ -89,7 +89,7 @@ class MainViewModel @Inject constructor(
 
     fun editPost(id: Int, post: PostRequest) = viewModelScope.launch {
         _editPostResponse.value = try {
-            val response = postDataSource.editPost(id, post)
+            val response = postDataSource.editPost(userToken.value!!, id, post)
 
             if (response.isSuccessful && response.body() != null) {
                 NetworkResult.Success(response.body()!!)
@@ -103,7 +103,7 @@ class MainViewModel @Inject constructor(
 
     fun deletePost(id: Int) = viewModelScope.launch {
         _deletePostResponse.value = try {
-            val response = postDataSource.deletePost(id)
+            val response = postDataSource.deletePost(userToken.value!!, id)
             if (response.isSuccessful && response.body() != null) {
                 NetworkResult.Success(response.body()!!)
             } else {

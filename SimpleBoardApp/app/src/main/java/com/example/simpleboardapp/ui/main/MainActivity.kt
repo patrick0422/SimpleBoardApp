@@ -29,7 +29,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
                 startActivity(Intent(this, UserActivity::class.java))
                 finish()
             } else {
-//                Toast.makeText(this, "토큰 값이 있습니다: $token", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "토큰 확인", Toast.LENGTH_SHORT).show()
             }
         })
     }

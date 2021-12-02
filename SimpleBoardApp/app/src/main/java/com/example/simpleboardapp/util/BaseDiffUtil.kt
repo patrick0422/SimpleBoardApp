@@ -3,7 +3,7 @@ package com.example.simpleboardapp.util
 import androidx.recyclerview.widget.DiffUtil
 import com.example.simpleboardapp.data.post.Post
 
-class PostListDiffUtil(
+class BaseDiffUtil(
     private val oldList: List<Post>,
     private val newList: List<Post>
 ) : DiffUtil.Callback() {
