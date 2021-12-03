@@ -7,40 +7,165 @@
 
     </data>
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:context=".ui.main.detail.DetailFragment">
 
-            <TextView
-                android:id="@+id/textTitle"
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/commentWrap"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="108dp"
+                    android:layout_marginEnd="32dp"
+                    android:text="@string/title_placeholder"
+                    android:textColor="@color/simple_blue"
+                    android:textSize="30sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/titleBorder"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/light_gray"
+                    app:layout_constraintEnd_toEndOf="@+id/textTitle"
+                    app:layout_constraintStart_toStartOf="@+id/textTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+
+                <TextView
+                    android:id="@+id/textContent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/upload_content_placeholder"
+                    android:textSize="20sp"
+                    app:layout_constraintEnd_toEndOf="@+id/textTitle"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/textTitle"
+                    app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+
+                <TextView
+                    android:id="@+id/textTags"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/tags_placeholder"
+                    android:textColor="@color/simple_blue"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintEnd_toEndOf="@+id/textContent"
+                    app:layout_constraintStart_toStartOf="@+id/textContent"
+                    app:layout_constraintTop_toBottomOf="@+id/textContent" />
+
+                <View
+                    android:id="@+id/commentBorder"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/light_gray"
+                    app:layout_constraintTop_toBottomOf="@id/textTags"
+                    app:layout_constraintEnd_toEndOf="@id/textTags"
+                    app:layout_constraintStart_toStartOf="@+id/textTags" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/comment"
+                    android:textColor="@color/simple_blue"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="@+id/commentBorder"
+                    app:layout_constraintTop_toBottomOf="@+id/commentBorder" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/commentView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/commentBorder"
+                    app:layout_constraintStart_toStartOf="@+id/textView"
+                    app:layout_constraintTop_toBottomOf="@+id/textView"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:listitem="@layout/comment_list_item" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/commentWrap"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <View
+                android:id="@+id/border"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="40dp"
-                android:layout_marginTop="40dp"
-                android:textColor="@color/simple_blue"
-                android:textSize="30sp"
-                android:textStyle="bold"
+                android:layout_height="1dp"
+                android:background="@color/light_gray"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textContent"
+            <EditText
+                android:id="@+id/editComment"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="40dp"
-                android:textColor="@color/black"
-                android:textSize="16sp"
+                android:layout_margin="10dp"
+                android:background="@drawable/round_edit_text"
+                android:hint="@string/comment_placeholder"
+                android:inputType="text"
+                android:paddingVertical="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="50dp"
+                android:singleLine="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/buttonAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:background="#00FFFFFF"
+                android:src="@drawable/ic_send"
+                app:layout_constraintBottom_toBottomOf="@+id/editComment"
+                app:layout_constraintEnd_toEndOf="@+id/editComment"
+                app:layout_constraintTop_toTopOf="@+id/editComment"
+                app:tint="@color/simple_blue" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:indeterminateTint="@color/simple_blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

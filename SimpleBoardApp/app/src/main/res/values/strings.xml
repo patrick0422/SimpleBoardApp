@@ -31,4 +31,7 @@
     <string name="upload_content_placeholder">내용을 입력해주세요.</string>
     <string name="upload_tags_placeholder">태그를 입력해주세요. (공백으로 구분)</string>
     <string name="submit">작성하기</string>
+    <string name="comment_placeholder">댓글을 입력해주세요.</string>
+    <string name="comment">댓글</string>
+    <string name="add_comment">Add Comment</string>
 </resources>
