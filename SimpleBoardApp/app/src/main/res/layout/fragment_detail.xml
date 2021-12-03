@@ -19,6 +19,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -67,8 +68,8 @@
                     android:textColor="@color/simple_blue"
                     android:textSize="16sp"
                     android:textStyle="bold"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintEnd_toEndOf="@+id/textContent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/textContent"
                     app:layout_constraintTop_toBottomOf="@+id/textContent" />
 
@@ -78,9 +79,9 @@
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
                     android:background="@color/light_gray"
-                    app:layout_constraintTop_toBottomOf="@id/textTags"
                     app:layout_constraintEnd_toEndOf="@id/textTags"
-                    app:layout_constraintStart_toStartOf="@+id/textTags" />
+                    app:layout_constraintStart_toStartOf="@+id/textTags"
+                    app:layout_constraintTop_toBottomOf="@id/textTags" />
 
                 <TextView
                     android:id="@+id/textView"
@@ -99,6 +100,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="true"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/commentBorder"
                     app:layout_constraintStart_toStartOf="@+id/textView"
@@ -146,20 +149,21 @@
                 android:id="@+id/buttonAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
                 android:background="#00FFFFFF"
+                android:padding="10dp"
                 android:src="@drawable/ic_send"
                 app:layout_constraintBottom_toBottomOf="@+id/editComment"
                 app:layout_constraintEnd_toEndOf="@+id/editComment"
                 app:layout_constraintTop_toTopOf="@+id/editComment"
                 app:tint="@color/simple_blue" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
             android:indeterminateTint="@color/simple_blue"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

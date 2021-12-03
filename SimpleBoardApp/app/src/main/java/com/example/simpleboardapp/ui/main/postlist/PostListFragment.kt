@@ -32,6 +32,10 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment
             getPosts()
         }
 
+        binding.buttonLogout.setOnClickListener {
+            mainViewModel.deleteUserToken()
+        }
+
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 getPosts(query!!)

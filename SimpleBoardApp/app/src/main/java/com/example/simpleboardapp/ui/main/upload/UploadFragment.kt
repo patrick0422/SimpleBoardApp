@@ -66,6 +66,6 @@ class UploadFragment : BaseFragment<FragmentUploadBinding>(R.layout.fragment_upl
     }
 
     private fun processTags(tags: String): String {
-        return tags.replace(" ", "#")
+        return "#".plus(tags.replace(" ", " #"))
     }
 }
