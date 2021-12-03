@@ -12,11 +12,27 @@
         android:layout_height="match_parent"
         tools:context=".ui.main.postlist.PostListFragment">
 
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            app:iconifiedByDefault="false"
+            app:queryHint="검색어를 입력해주세요."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
         <com.todkars.shimmer.ShimmerRecyclerView
             android:id="@+id/shimmerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@+id/swipeRefreshLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchView"
             app:shimmer_recycler_item_count="8"
             app:shimmer_recycler_layout="@layout/post_list_placeholder" />
 
@@ -24,17 +40,17 @@
             android:id="@+id/swipeRefreshLayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/searchView">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/postView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/post_list_item" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

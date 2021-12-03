@@ -4,8 +4,8 @@ import androidx.recyclerview.widget.DiffUtil
 import com.example.simpleboardapp.data.post.Post
 
 class BaseDiffUtil(
-    private val oldList: List<Post>,
-    private val newList: List<Post>
+    private val oldList: List<Any>,
+    private val newList: List<Any>
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldList.size
 

@@ -2,6 +2,7 @@ package com.example.simpleboardapp.ui.main.postlist
 
 import android.util.Log
 import android.view.View
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.simpleboardapp.R
@@ -30,6 +31,19 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment
         binding.swipeRefreshLayout.setOnRefreshListener {
             getPosts()
         }
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                getPosts(query!!)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText!!.isBlank())
+                    getPosts()
+                return true
+            }
+        })
     }
 
     override fun onResume() {
@@ -38,8 +52,12 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment
     }
 
     private fun getPosts() {
+        getPosts("")
+    }
+
+    private fun getPosts(keyword: String) {
         isLoading(true)
-        mainViewModel.getPosts(SearchRequest(1, ""))
+        mainViewModel.getPosts(SearchRequest(1, keyword))
 
         mainViewModel.getPostsResponse.observe(this, { response ->
             when (response) {
@@ -63,9 +81,11 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment
     
     private fun isLoading(loading: Boolean) {
         if (loading) {
+            binding.shimmerView.visibility = View.VISIBLE
             binding.shimmerView.showShimmer()
             binding.postView.visibility = View.GONE
         } else {
+            binding.shimmerView.visibility = View.GONE
             binding.shimmerView.hideShimmer()
             binding.postView.visibility = View.VISIBLE
         }
