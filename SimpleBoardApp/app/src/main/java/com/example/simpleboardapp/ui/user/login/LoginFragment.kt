@@ -53,7 +53,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                     val userToken = response.data!!.token
                     userViewModel.saveUserToken(userToken)
 
-                    showToast("로그인 성공! Token: $userToken")
+                    showToast("로그인 성공!")
                     startActivity(Intent(context, MainActivity::class.java))
                     activity?.finish()
                 }
