@@ -3,12 +3,15 @@ package com.example.simpleboardapp.ui.main
 import android.app.Application
 import androidx.lifecycle.*
 import com.example.simpleboardapp.data.DataStoreRepository
+import com.example.simpleboardapp.data.comment.CommentDataSource
+import com.example.simpleboardapp.data.comment.CommentRequest
 import com.example.simpleboardapp.data.post.Post
 import com.example.simpleboardapp.data.post.PostDataSource
 import com.example.simpleboardapp.data.post.PostRequest
 import com.example.simpleboardapp.data.post.SearchRequest
 import com.example.simpleboardapp.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.lang.Exception
@@ -18,6 +21,7 @@ import javax.inject.Inject
 class MainViewModel @Inject constructor(
     application: Application,
     private val postDataSource: PostDataSource,
+    private val commentDataSource: CommentDataSource,
     private val dataStoreRepository: DataStoreRepository
 ) : AndroidViewModel(application) {
     private val _getPostsResponse: MutableLiveData<NetworkResult<List<Post>>> =
@@ -45,7 +49,24 @@ class MainViewModel @Inject constructor(
     val deletePostResponse: LiveData<NetworkResult<Post>>
         get() = _deletePostResponse
 
+    private val _addCommentResponse: MutableLiveData<NetworkResult<Any>> =
+        MutableLiveData(NetworkResult.Loading())
+    val addCommentResponse: LiveData<NetworkResult<Any>>
+        get() = _addCommentResponse
+
+    private val _editCommentResponse: MutableLiveData<NetworkResult<Any>> =
+        MutableLiveData(NetworkResult.Loading())
+    val editCommentResponse: LiveData<NetworkResult<Any>>
+        get() = _editCommentResponse
+
+    private val _deleteCommentResponse: MutableLiveData<NetworkResult<Any>> =
+        MutableLiveData(NetworkResult.Loading())
+    val deleteCommentResponse: LiveData<NetworkResult<Any>>
+        get() = _deleteCommentResponse
+
+
     fun getPosts(searchRequest: SearchRequest) = viewModelScope.launch {
+        delay(1000)
         _getPostsResponse.value = try {
             val response = postDataSource.getPosts(searchRequest)
 
@@ -59,9 +80,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getPost(id: Int) = viewModelScope.launch {
+    fun getPost(postId: Int) = viewModelScope.launch {
         _getPostResponse.value = try {
-            val response = postDataSource.getPost(id)
+            val response = postDataSource.getPost(postId)
 
             if (response.isSuccessful && response.body() != null) {
                 NetworkResult.Success(response.body()!!)
@@ -87,9 +108,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun editPost(id: Int, post: PostRequest) = viewModelScope.launch {
+    fun editPost(postId: Int, post: PostRequest) = viewModelScope.launch {
         _editPostResponse.value = try {
-            val response = postDataSource.editPost(userToken.value!!, id, post)
+            val response = postDataSource.editPost(userToken.value!!, postId, post)
 
             if (response.isSuccessful && response.body() != null) {
                 NetworkResult.Success(response.body()!!)
@@ -101,9 +122,9 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun deletePost(id: Int) = viewModelScope.launch {
+    fun deletePost(postId: Int) = viewModelScope.launch {
         _deletePostResponse.value = try {
-            val response = postDataSource.deletePost(userToken.value!!, id)
+            val response = postDataSource.deletePost(userToken.value!!, postId)
             if (response.isSuccessful && response.body() != null) {
                 NetworkResult.Success(response.body()!!)
             } else {
@@ -114,6 +135,42 @@ class MainViewModel @Inject constructor(
         }
     }
 
+    fun addComment(postId: Int, content: String) = viewModelScope.launch {
+        _addCommentResponse.value = try {
+            val response = commentDataSource.addComment(userToken.value!!, postId, CommentRequest(content))
+            if (response.isSuccessful) {
+                NetworkResult.Success(response.message())
+            } else {
+                NetworkResult.Error(response.message())
+            }
+        } catch (e: Exception) {
+            NetworkResult.Error(e.stackTraceToString())
+        }
+    }
+
+    fun editComment(commentId: Int, content: String) = viewModelScope.launch {
+        _editCommentResponse.value = try {
+            val response = commentDataSource.editComment(userToken.value!!, commentId, CommentRequest(content))
+            if (response.isSuccessful)
+                NetworkResult.Success(response.message())
+            else
+                NetworkResult.Error(response.message())
+        } catch (e: Exception) {
+            NetworkResult.Error(e.stackTraceToString())
+        }
+    }
+
+    fun deleteComment(commentId: Int) = viewModelScope.launch {
+        _deleteCommentResponse.value = try {
+            val response = commentDataSource.deleteComment(userToken.value!!, commentId)
+            if (response.isSuccessful)
+                NetworkResult.Success(response.message())
+            else
+                NetworkResult.Error(response.message())
+        } catch (e: Exception) {
+            NetworkResult.Error(e.stackTraceToString())
+        }
+    }
 
 
     /** DataStore */
