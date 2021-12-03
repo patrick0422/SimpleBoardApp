@@ -18,7 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment_post_list) {
     private val mainViewModel: MainViewModel by viewModels()
-    private val postListViewModel: PostListViewModel by viewModels()
     private val mAdapter: PostListAdapter by lazy { PostListAdapter() }
 
     override fun init() {
