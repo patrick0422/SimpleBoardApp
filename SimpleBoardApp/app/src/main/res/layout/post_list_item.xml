@@ -27,6 +27,7 @@
                 android:text="@string/id_placeholder"
                 android:textColor="@color/simple_blue"
                 android:textSize="30sp"
+                android:fontFamily="@font/apple_sd_gothic_neo_b"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -46,6 +47,7 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
+                android:fontFamily="@font/apple_sd_gothic_neo_m"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/textId"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -59,6 +61,7 @@
                 android:singleLine="true"
                 android:text="@string/tags_placeholder"
                 android:textColor="@color/simple_blue"
+                android:fontFamily="@font/apple_sd_gothic_neo_m"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/textTitle"
                 app:layout_constraintHorizontal_bias="0.0"

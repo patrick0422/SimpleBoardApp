@@ -28,8 +28,6 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
             if (token.isBlank()) {
                 startActivity(Intent(this, UserActivity::class.java))
                 finish()
-            } else {
-                Toast.makeText(this, "토큰 확인", Toast.LENGTH_SHORT).show()
             }
         })
     }

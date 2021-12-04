@@ -92,6 +92,7 @@
                     android:textColor="@color/simple_blue"
                     android:textSize="20sp"
                     android:textStyle="bold"
+                    android:fontFamily="@font/apple_sd_gothic_neo_m"
                     app:layout_constraintStart_toStartOf="@+id/commentBorder"
                     app:layout_constraintTop_toBottomOf="@+id/commentBorder" />
 
@@ -135,6 +136,7 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/round_edit_text"
                 android:hint="@string/comment_placeholder"
+                android:fontFamily="@font/apple_sd_gothic_neo_m"
                 android:inputType="text"
                 android:paddingVertical="10dp"
                 android:paddingStart="10dp"
