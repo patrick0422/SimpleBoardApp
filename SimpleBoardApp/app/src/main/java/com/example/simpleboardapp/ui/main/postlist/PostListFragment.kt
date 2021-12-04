@@ -1,5 +1,8 @@
 package com.example.simpleboardapp.ui.main.postlist
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
 import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.SearchView
@@ -32,7 +35,16 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment
         }
 
         binding.buttonLogout.setOnClickListener {
-            mainViewModel.deleteUserToken()
+            AlertDialog.Builder(context)
+                .setTitle("로그아웃")
+                .setMessage("로그아웃 하시겠습니까?")
+                .setNegativeButton("아니요") { _, _ ->
+
+                }
+                .setPositiveButton("예") { _, _ ->
+                    mainViewModel.deleteUser()
+                }
+                .show()
         }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {

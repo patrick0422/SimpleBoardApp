@@ -6,7 +6,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.simpleboardapp.R
-import com.example.simpleboardapp.data.user.register.RegisterRequest
+import com.example.simpleboardapp.data.user.RegisterRequest
+import com.example.simpleboardapp.data.user.User
 import com.example.simpleboardapp.databinding.FragmentRegisterBinding
 import com.example.simpleboardapp.ui.main.MainActivity
 import com.example.simpleboardapp.ui.user.UserViewModel
@@ -62,8 +63,10 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
                 is NetworkResult.Success -> {
                     isLoading(false)
 
-                    val userToken = response.data!!.token
-                    userViewModel.saveUserToken(userToken)
+                    val user = with (response.data!!) {
+                        User(id, nickname, email, password, token, createdAt)
+                    }
+                    userViewModel.saveUser(user)
 
                     showToast("회원가입 성공!")
                     startActivity(Intent(context, MainActivity::class.java))

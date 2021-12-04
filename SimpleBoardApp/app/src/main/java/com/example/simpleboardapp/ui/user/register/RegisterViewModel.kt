@@ -4,8 +4,8 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.example.simpleboardapp.data.DataStoreRepository
 import com.example.simpleboardapp.data.user.UserDataSource
-import com.example.simpleboardapp.data.user.register.RegisterRequest
-import com.example.simpleboardapp.data.user.register.RegisterResponse
+import com.example.simpleboardapp.data.user.RegisterRequest
+import com.example.simpleboardapp.data.user.User
 import com.example.simpleboardapp.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,8 +18,8 @@ class RegisterViewModel @Inject constructor(
     private val dataStoreRepository: DataStoreRepository
 ): AndroidViewModel(application) {
 
-    private val _registerResponse: MutableLiveData<NetworkResult<RegisterResponse>> = MutableLiveData()
-    val registerResponse: LiveData<NetworkResult<RegisterResponse>>
+    private val _registerResponse: MutableLiveData<NetworkResult<User>> = MutableLiveData()
+    val registerResponse: LiveData<NetworkResult<User>>
         get() = _registerResponse
 
 
@@ -39,7 +39,7 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
-    fun saveUserToken(userToken: String) = viewModelScope.launch {
-        dataStoreRepository.saveUserToken(userToken)
+    fun saveUser(user: User) = viewModelScope.launch {
+        dataStoreRepository.saveUser(user)
     }
 }

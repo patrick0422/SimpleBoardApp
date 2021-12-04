@@ -7,7 +7,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.simpleboardapp.R
-import com.example.simpleboardapp.data.user.login.LoginRequest
+import com.example.simpleboardapp.data.user.LoginRequest
+import com.example.simpleboardapp.data.user.User
 import com.example.simpleboardapp.databinding.FragmentLoginBinding
 import com.example.simpleboardapp.ui.main.MainActivity
 import com.example.simpleboardapp.ui.user.UserViewModel
@@ -50,8 +51,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 is NetworkResult.Success -> {
                     isLoading(false)
 
-                    val userToken = response.data!!.token
-                    userViewModel.saveUserToken(userToken)
+                    val user = with (response.data!!) {
+                         User(id, nickname, email, password, token, createdAt)
+                    }
+                    userViewModel.saveUser(user)
 
                     showToast("로그인 성공!")
                     startActivity(Intent(context, MainActivity::class.java))
@@ -60,7 +63,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 is NetworkResult.Error -> {
                     isLoading(false)
 
-                    if (response.message!!.contains("End of input at line 1 column 1 path \$")) {
+                    if (response.message!!.contains("End of input at line 1 column 1 path")) {
                         showToast("계정 정보를 다시 확인해주세요.")
                     } else {
                         Log.d(TAG, "onLogin: ${response.message}")

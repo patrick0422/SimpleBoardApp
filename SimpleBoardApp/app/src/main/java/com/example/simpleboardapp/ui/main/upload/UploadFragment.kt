@@ -45,7 +45,7 @@ class UploadFragment : BaseFragment<FragmentUploadBinding>(R.layout.fragment_upl
                     showToast("성공!")
                     isLoading(false)
                     activity!!.supportFragmentManager.popBackStack()
-                    (activity!! as FragmentActivity).onBackPressed() // TODO
+                    activity!!.onBackPressed() // TODO
                 }
                 is NetworkResult.Error -> {
                     Log.d(TAG, "uploadPost: ${response.message!!}")

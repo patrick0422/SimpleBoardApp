@@ -1,4 +1,4 @@
-package com.example.simpleboardapp.data.user.login
+package com.example.simpleboardapp.data.user
 
 
 import com.google.gson.annotations.SerializedName

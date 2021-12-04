@@ -1,9 +1,9 @@
-package com.example.simpleboardapp.data.user.login
+package com.example.simpleboardapp.data.user
 
 
 import com.google.gson.annotations.SerializedName
 
-data class LoginResponse(
+data class User(
     @SerializedName("id")
     val id: Int,
     @SerializedName("nickname")
@@ -17,3 +17,5 @@ data class LoginResponse(
     @SerializedName("createdAt")
     val createdAt: String
 )
+
+fun getEmptyUser(): User = User(-1, "", "", "", "", "")

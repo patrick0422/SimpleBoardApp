@@ -9,6 +9,8 @@ import com.example.simpleboardapp.data.post.Post
 import com.example.simpleboardapp.data.post.PostDataSource
 import com.example.simpleboardapp.data.post.PostRequest
 import com.example.simpleboardapp.data.post.SearchRequest
+import com.example.simpleboardapp.data.user.User
+import com.example.simpleboardapp.data.user.getEmptyUser
 import com.example.simpleboardapp.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -96,7 +98,7 @@ class MainViewModel @Inject constructor(
 
     fun addPost(post: PostRequest) = viewModelScope.launch {
         _addPostResponse.value = try {
-            val response = postDataSource.addPost(userToken.value!!, post)
+            val response = postDataSource.addPost(user.value!!.token, post)
 
             if (response.isSuccessful && response.body() != null) {
                 NetworkResult.Success(response.body()!!)
@@ -110,7 +112,7 @@ class MainViewModel @Inject constructor(
 
     fun editPost(postId: Int, post: PostRequest) = viewModelScope.launch {
         _editPostResponse.value = try {
-            val response = postDataSource.editPost(userToken.value!!, postId, post)
+            val response = postDataSource.editPost(user.value!!.token, postId, post)
 
             if (response.isSuccessful && response.body() != null) {
                 NetworkResult.Success(response.body()!!)
@@ -124,7 +126,7 @@ class MainViewModel @Inject constructor(
 
     fun deletePost(postId: Int) = viewModelScope.launch {
         _deletePostResponse.value = try {
-            val response = postDataSource.deletePost(userToken.value!!, postId)
+            val response = postDataSource.deletePost(user.value!!.token, postId)
             if (response.isSuccessful && response.body() != null) {
                 NetworkResult.Success(response.body()!!)
             } else {
@@ -137,7 +139,8 @@ class MainViewModel @Inject constructor(
 
     fun addComment(postId: Int, content: String) = viewModelScope.launch {
         _addCommentResponse.value = try {
-            val response = commentDataSource.addComment(userToken.value!!, postId, CommentRequest(content))
+            val response =
+                commentDataSource.addComment(user.value!!.token, postId, CommentRequest(content))
             if (response.isSuccessful) {
                 NetworkResult.Success(response.message())
             } else {
@@ -150,7 +153,8 @@ class MainViewModel @Inject constructor(
 
     fun editComment(commentId: Int, content: String) = viewModelScope.launch {
         _editCommentResponse.value = try {
-            val response = commentDataSource.editComment(userToken.value!!, commentId, CommentRequest(content))
+            val response =
+                commentDataSource.editComment(user.value!!.token, commentId, CommentRequest(content))
             if (response.isSuccessful)
                 NetworkResult.Success(response.message())
             else
@@ -162,7 +166,7 @@ class MainViewModel @Inject constructor(
 
     fun deleteComment(commentId: Int) = viewModelScope.launch {
         _deleteCommentResponse.value = try {
-            val response = commentDataSource.deleteComment(userToken.value!!, commentId)
+            val response = commentDataSource.deleteComment(user.value!!.token, commentId)
             if (response.isSuccessful)
                 NetworkResult.Success(response.message())
             else
@@ -174,21 +178,17 @@ class MainViewModel @Inject constructor(
 
 
     /** DataStore */
-    private val _userToken: MutableLiveData<String> = MutableLiveData()
-    val userToken: LiveData<String>
-        get() = _userToken
+    private val _user: MutableLiveData<User> = MutableLiveData(getEmptyUser())
+    val user: LiveData<User>
+        get() = _user
 
-    fun getUserToken() = viewModelScope.launch {
-        dataStoreRepository.getUserToken.collect { value ->
-            _userToken.value = value
+    fun getUser() = viewModelScope.launch {
+        dataStoreRepository.getUser.collect { value ->
+            _user.value = with(value) { User(id, nickname, email, password, token, createdAt) }
         }
     }
 
-    fun saveUserToken() = viewModelScope.launch {
-        dataStoreRepository.saveUserToken(userToken.value ?: "")
-    }
-
-    fun deleteUserToken() = viewModelScope.launch {
-        dataStoreRepository.saveUserToken("")
+    fun deleteUser() = viewModelScope.launch {
+        dataStoreRepository.saveUser(getEmptyUser())
     }
 }

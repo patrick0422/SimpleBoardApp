@@ -20,12 +20,12 @@ class MainActivity : BaseActivity<ActivityMainBinding>(R.layout.activity_main) {
     private val mainViewModel: MainViewModel by viewModels()
 
     override fun init() {
-        if (mainViewModel.userToken.value.isNullOrBlank()) {
-            mainViewModel.getUserToken()
+        if (mainViewModel.user.value!!.id == -1) {
+            mainViewModel.getUser()
         }
 
-        mainViewModel.userToken.observe(this, { token ->
-            if (token.isBlank()) {
+        mainViewModel.user.observe(this, { user ->
+            if (user.id == -1) {
                 startActivity(Intent(this, UserActivity::class.java))
                 finish()
             }

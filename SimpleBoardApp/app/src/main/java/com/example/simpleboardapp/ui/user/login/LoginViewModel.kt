@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.example.simpleboardapp.data.DataStoreRepository
 import com.example.simpleboardapp.data.user.UserDataSource
-import com.example.simpleboardapp.data.user.login.LoginRequest
-import com.example.simpleboardapp.data.user.login.LoginResponse
+import com.example.simpleboardapp.data.user.LoginRequest
+import com.example.simpleboardapp.data.user.User
 import com.example.simpleboardapp.util.Constants
 import com.example.simpleboardapp.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,8 +17,8 @@ class LoginViewModel @Inject constructor(
     private val userDataSource: UserDataSource,
     private val dataStoreRepository: DataStoreRepository
 ): ViewModel() {
-    private val _loginResponse: MutableLiveData<NetworkResult<LoginResponse>> = MutableLiveData()
-    val loginResponse: LiveData<NetworkResult<LoginResponse>>
+    private val _loginResponse: MutableLiveData<NetworkResult<User>> = MutableLiveData()
+    val loginResponse: LiveData<NetworkResult<User>>
         get() = _loginResponse
 
 
@@ -39,7 +39,7 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun saveUserToken(userToken: String) = viewModelScope.launch {
-        dataStoreRepository.saveUserToken(userToken)
+    fun saveUser(user: User) = viewModelScope.launch {
+        dataStoreRepository.saveUser(user)
     }
 }
