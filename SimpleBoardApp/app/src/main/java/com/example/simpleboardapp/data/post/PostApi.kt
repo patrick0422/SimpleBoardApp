@@ -14,7 +14,7 @@ interface PostApi {
     suspend fun editPost(@Header("Authorization") token: String, @Path(value = "id") id: Int, @Body post: PostRequest): Response<Post>
 
     @DELETE("/post/{id}")
-    suspend fun deletePost(@Header("Authorization") token: String, @Path(value = "id") id: Int): Response<Post>
+    suspend fun deletePost(@Header("Authorization") token: String, @Path(value = "id") id: Int): Response<List<Post>>
 
     @POST("/post")
     suspend fun addPost(@Header("Authorization") token: String, @Body post: PostRequest): Response<Post>

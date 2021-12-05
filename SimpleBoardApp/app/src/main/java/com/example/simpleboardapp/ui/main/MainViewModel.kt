@@ -130,7 +130,7 @@ class MainViewModel @Inject constructor(
         _deletePostResponse.value = try {
             val response = postDataSource.deletePost(user.value!!.token, postId)
             if (response.isSuccessful && response.body() != null) {
-                NetworkResult.Success(response.body()!!)
+                NetworkResult.Success(response.body()!![0])
             } else {
                 NetworkResult.Error(response.message())
             }

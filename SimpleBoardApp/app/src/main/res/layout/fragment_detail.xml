@@ -34,6 +34,7 @@
                     android:textColor="@color/simple_blue"
                     android:textSize="30sp"
                     android:textStyle="bold"
+                    android:fontFamily="@font/apple_sd_gothic_neo_b"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
@@ -44,21 +45,41 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="@color/light_gray"
+                    android:background="@color/placeholder_gray"
                     app:layout_constraintEnd_toEndOf="@+id/textTitle"
                     app:layout_constraintStart_toStartOf="@+id/textTitle"
                     app:layout_constraintTop_toBottomOf="@+id/textTitle" />
 
                 <TextView
+                    android:id="@+id/textEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/edit"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toStartOf="@+id/textDelete"
+                    app:layout_constraintTop_toBottomOf="@+id/titleBorder" />
+
+                <TextView
+                    android:id="@+id/textDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/delete"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/titleBorder"
+                    app:layout_constraintTop_toBottomOf="@+id/titleBorder" />
+
+                <TextView
                     android:id="@+id/textContent"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/apple_sd_gothic_neo_m"
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="@+id/textTitle"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/textTitle"
-                    app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+                    app:layout_constraintTop_toBottomOf="@+id/textEdit" />
 
                 <TextView
                     android:id="@+id/textTags"
@@ -68,6 +89,7 @@
                     android:textColor="@color/simple_blue"
                     android:textSize="16sp"
                     android:textStyle="bold"
+                    android:fontFamily="@font/apple_sd_gothic_neo_m"
                     app:layout_constraintEnd_toEndOf="@+id/textContent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/textContent"
@@ -78,7 +100,7 @@
                     android:layout_width="0dp"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
-                    android:background="@color/light_gray"
+                    android:background="@color/placeholder_gray"
                     app:layout_constraintEnd_toEndOf="@id/textTags"
                     app:layout_constraintStart_toStartOf="@+id/textTags"
                     app:layout_constraintTop_toBottomOf="@id/textTags" />
@@ -108,7 +130,8 @@
                     app:layout_constraintStart_toStartOf="@+id/textView"
                     app:layout_constraintTop_toBottomOf="@+id/textView"
                     app:layout_constraintVertical_bias="0.0"
-                    tools:listitem="@layout/comment_list_item" />
+                    tools:listitem="@layout/comment_list_item"
+                    tools:itemCount="6"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
 
@@ -124,7 +147,7 @@
                 android:id="@+id/border"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:background="@color/light_gray"
+                android:background="@color/placeholder_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

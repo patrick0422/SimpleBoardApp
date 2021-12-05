@@ -3,6 +3,7 @@ package com.example.simpleboardapp.ui.main.detail
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.simpleboardapp.R
 import com.example.simpleboardapp.databinding.FragmentDetailBinding
@@ -43,6 +44,32 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                         isLoading(false)
                     }
                     is NetworkResult.Loading -> isLoading(true)
+                }
+            })
+        }
+
+        binding.textEdit.setOnClickListener {
+            it.findNavController().navigate(DetailFragmentDirections.actionDetailFragmentToUploadFragment(args.postId))
+        }
+        binding.textDelete.setOnClickListener {
+            mainViewModel.deletePost(args.postId)
+
+            mainViewModel.deletePostResponse.observe(this, { response ->
+                when (response) {
+                    is NetworkResult.Success -> {
+                        showToast("글이 삭제되었습니다.")
+
+                        isLoading(false)
+                        activity!!.supportFragmentManager.popBackStack()
+                        activity!!.onBackPressed()
+                    }
+                    is NetworkResult.Error -> {
+                        showToast("본인이 작성한 글만 삭제할 수 있습니다.")
+                        isLoading(false)
+                    }
+                    is NetworkResult.Loading -> {
+                        isLoading(true)
+                    }
                 }
             })
         }

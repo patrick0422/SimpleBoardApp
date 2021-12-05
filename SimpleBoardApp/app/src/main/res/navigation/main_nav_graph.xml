@@ -29,7 +29,12 @@
         android:id="@+id/uploadFragment"
         android:name="com.example.simpleboardapp.ui.main.upload.UploadFragment"
         android:label="fragment_upload"
-        tools:layout="@layout/fragment_upload" />
+        tools:layout="@layout/fragment_upload" >
+        <argument
+            android:name="post_id"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.simpleboardapp.ui.main.detail.DetailFragment"
@@ -38,5 +43,8 @@
         <argument
             android:name="post_id"
             app:argType="integer" />
+        <action
+            android:id="@+id/action_detailFragment_to_uploadFragment"
+            app:destination="@id/uploadFragment" />
     </fragment>
 </navigation>

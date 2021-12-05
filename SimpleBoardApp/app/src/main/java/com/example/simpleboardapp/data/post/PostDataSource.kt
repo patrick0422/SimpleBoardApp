@@ -14,5 +14,5 @@ class PostDataSource @Inject constructor(
 
     suspend fun editPost(token: String, id: Int, post: PostRequest): Response<Post> = postApi.editPost(token, id, post)
 
-    suspend fun deletePost(token: String, id: Int): Response<Post> = postApi.deletePost(token, id)
+    suspend fun deletePost(token: String, id: Int): Response<List<Post>> = postApi.deletePost(token, id)
 }
