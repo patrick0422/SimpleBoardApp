@@ -14,8 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
     application: Application,
-    private val userDataSource: UserDataSource,
-    private val dataStoreRepository: DataStoreRepository
+    private val userDataSource: UserDataSource
 ): AndroidViewModel(application) {
 
     private val _registerResponse: MutableLiveData<NetworkResult<User>> = MutableLiveData()
@@ -37,9 +36,5 @@ class RegisterViewModel @Inject constructor(
         } catch (e: Exception) {
             NetworkResult.Error(e.stackTraceToString())
         }
-    }
-
-    fun saveUser(user: User) = viewModelScope.launch {
-        dataStoreRepository.saveUser(user)
     }
 }

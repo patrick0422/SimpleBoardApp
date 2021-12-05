@@ -19,7 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login) {
-    private val userViewModel: UserViewModel by activityViewModels()
+    private val userViewModel: UserViewModel by viewModels()
     private val loginViewModel: LoginViewModel by viewModels()
 
     override fun init() {
@@ -51,9 +51,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                 is NetworkResult.Success -> {
                     isLoading(false)
 
-                    val user = with (response.data!!) {
-                         User(id, nickname, email, password, token, createdAt)
-                    }
+                    val user = with (response.data!!) { User(id, nickname, email, password, token, createdAt) }
+                    Log.d(TAG, "onLogin: $user")
                     userViewModel.saveUser(user)
 
                     showToast("로그인 성공!")

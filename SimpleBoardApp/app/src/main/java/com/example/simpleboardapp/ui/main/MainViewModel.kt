@@ -1,6 +1,7 @@
 package com.example.simpleboardapp.ui.main
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.simpleboardapp.data.DataStoreRepository
 import com.example.simpleboardapp.data.comment.CommentDataSource
@@ -11,6 +12,7 @@ import com.example.simpleboardapp.data.post.PostRequest
 import com.example.simpleboardapp.data.post.SearchRequest
 import com.example.simpleboardapp.data.user.User
 import com.example.simpleboardapp.data.user.getEmptyUser
+import com.example.simpleboardapp.util.Constants.Companion.TAG
 import com.example.simpleboardapp.util.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -178,7 +180,7 @@ class MainViewModel @Inject constructor(
 
 
     /** DataStore */
-    private val _user: MutableLiveData<User> = MutableLiveData(getEmptyUser())
+    private val _user: MutableLiveData<User> = MutableLiveData()
     val user: LiveData<User>
         get() = _user
 

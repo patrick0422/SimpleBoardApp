@@ -14,8 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val userDataSource: UserDataSource,
-    private val dataStoreRepository: DataStoreRepository
+    private val userDataSource: UserDataSource
 ): ViewModel() {
     private val _loginResponse: MutableLiveData<NetworkResult<User>> = MutableLiveData()
     val loginResponse: LiveData<NetworkResult<User>>
@@ -37,9 +36,5 @@ class LoginViewModel @Inject constructor(
             Log.d(Constants.TAG, "login: ${e.stackTraceToString()}")
             NetworkResult.Error(e.stackTraceToString())
         }
-    }
-
-    fun saveUser(user: User) = viewModelScope.launch {
-        dataStoreRepository.saveUser(user)
     }
 }

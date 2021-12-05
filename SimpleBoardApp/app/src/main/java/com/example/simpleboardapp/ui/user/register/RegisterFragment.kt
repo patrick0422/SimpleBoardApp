@@ -2,7 +2,6 @@ package com.example.simpleboardapp.ui.user.register
 
 import android.content.Intent
 import android.view.View
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.simpleboardapp.R
@@ -17,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment_register) {
-    private val userViewModel: UserViewModel by activityViewModels()
+    private val userViewModel: UserViewModel by viewModels()
     private val registerViewModel: RegisterViewModel by viewModels()
 
     override fun init() {
@@ -63,9 +62,7 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
                 is NetworkResult.Success -> {
                     isLoading(false)
 
-                    val user = with (response.data!!) {
-                        User(id, nickname, email, password, token, createdAt)
-                    }
+                    val user = with(response.data!!) { User(id, nickname, email, password, token, createdAt) }
                     userViewModel.saveUser(user)
 
                     showToast("회원가입 성공!")

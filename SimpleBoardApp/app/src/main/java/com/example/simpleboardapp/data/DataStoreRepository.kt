@@ -46,7 +46,7 @@ class DataStoreRepository @Inject constructor(@ApplicationContext private val co
             preferences[PreferenceKeys.userNickname] ?: "Unknown",
             preferences[PreferenceKeys.userEmail] ?: "Unknown",
             preferences[PreferenceKeys.userPassword] ?: "Unknown",
-            preferences[PreferenceKeys.userToken] ?: "Invalid Token",
+            preferences[PreferenceKeys.userToken] ?: "Unknown",
             preferences[PreferenceKeys.userCreatedAt] ?: "Unknown"
         )}
 

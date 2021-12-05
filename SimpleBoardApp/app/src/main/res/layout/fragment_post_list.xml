@@ -19,15 +19,15 @@
             android:layout_marginVertical="10dp"
             app:iconifiedByDefault="false"
             app:queryHint="검색어를 입력해주세요."
-            app:layout_constraintEnd_toStartOf="@id/buttonLogout"
+            app:layout_constraintEnd_toStartOf="@id/buttonProfile"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageButton
-            android:id="@+id/buttonLogout"
+            android:id="@+id/buttonProfile"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/ic_exit"
+            android:src="@drawable/ic_person"
             android:background="#00000000"
             app:layout_constraintBottom_toBottomOf="@+id/searchView"
             app:layout_constraintEnd_toEndOf="parent"

@@ -6,6 +6,7 @@ import android.content.DialogInterface
 import android.util.Log
 import android.view.View
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.simpleboardapp.R
@@ -20,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment_post_list) {
-    private val mainViewModel: MainViewModel by viewModels()
+    private val mainViewModel: MainViewModel by activityViewModels()
     private val mAdapter: PostListAdapter by lazy { PostListAdapter() }
 
     override fun init() {
@@ -34,17 +35,20 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment
             getPosts()
         }
 
-        binding.buttonLogout.setOnClickListener {
-            AlertDialog.Builder(context)
-                .setTitle("로그아웃")
-                .setMessage("로그아웃 하시겠습니까?")
-                .setNegativeButton("아니요") { _, _ ->
+        binding.buttonProfile.setOnClickListener {
+            with(mainViewModel.user.value!!) {
+                Log.d(TAG, "init: $this")
+                AlertDialog.Builder(context)
+                    .setTitle(nickname)
+                    .setMessage(createdAt)
+                    .setPositiveButton("로그아웃") { _, _ ->
+                        mainViewModel.deleteUser()
+                    }
+                    .setNeutralButton("닫기") { _, _ ->
 
-                }
-                .setPositiveButton("예") { _, _ ->
-                    mainViewModel.deleteUser()
-                }
-                .show()
+                    }
+                    .show()
+            }
         }
 
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -93,7 +97,7 @@ class PostListFragment : BaseFragment<FragmentPostListBinding>(R.layout.fragment
             binding.swipeRefreshLayout.isRefreshing = false
         })
     }
-    
+
     private fun isLoading(loading: Boolean) {
         if (loading) {
             binding.shimmerView.visibility = View.VISIBLE
