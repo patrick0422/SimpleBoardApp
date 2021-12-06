@@ -17,7 +17,7 @@
             android:layout_margin="10dp"
             android:text="#1"
             android:textColor="@color/simple_blue"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:fontFamily="@font/apple_sd_gothic_neo_m"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

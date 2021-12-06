@@ -1,6 +1,7 @@
 package com.example.simpleboardapp.ui.user.register
 
 import android.content.Intent
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -11,6 +12,7 @@ import com.example.simpleboardapp.databinding.FragmentRegisterBinding
 import com.example.simpleboardapp.ui.main.MainActivity
 import com.example.simpleboardapp.ui.user.UserViewModel
 import com.example.simpleboardapp.util.BaseFragment
+import com.example.simpleboardapp.util.Constants.Companion.TAG
 import com.example.simpleboardapp.util.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -71,7 +73,8 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
                 }
                 is NetworkResult.Error -> {
                     isLoading(false)
-                    showToast("회원가입 실패! Message: ${response.message}")
+                    showToast("회원가입 실패!")
+                    Log.d(TAG, "onRegister: ${response.message}")
                 }
                 is NetworkResult.Loading -> {
                     isLoading(true)
