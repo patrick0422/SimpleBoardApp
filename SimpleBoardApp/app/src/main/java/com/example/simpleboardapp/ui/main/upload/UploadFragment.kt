@@ -65,7 +65,7 @@ class UploadFragment : BaseFragment<FragmentUploadBinding>(R.layout.fragment_upl
     private fun editPost() {
         val title = binding.editTitle.text.toString()
         val content = binding.editContent.text.toString()
-        val tags = processTags(binding.editTags.text.toString())
+        val tags = processTags(binding.editTags.text.toString().replace(" #", " "))
 
         if (title.isBlank()) {
             showToast("제목을 입력해주세요.")
@@ -83,6 +83,7 @@ class UploadFragment : BaseFragment<FragmentUploadBinding>(R.layout.fragment_upl
                     showToast("성공!")
                     isLoading(false)
                     activity!!.supportFragmentManager.popBackStack()
+                    activity!!.onBackPressed()
                     activity!!.onBackPressed()
                 }
                 is NetworkResult.Error -> {
