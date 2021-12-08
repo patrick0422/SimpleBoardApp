@@ -15,7 +15,7 @@ class PostListAdapter() : RecyclerView.Adapter<PostListAdapter.PostListViewHolde
     var postList: List<Post> = emptyList()
 
     class PostListViewHolder(private val binding: PostListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(post: Post) = binding.apply {
+        fun bind(post: Post) = with(binding) {
             textId.text = post.id.toString()
             textTitle.text = post.title
             textTags.text = post.tags
@@ -34,9 +34,7 @@ class PostListAdapter() : RecyclerView.Adapter<PostListAdapter.PostListViewHolde
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostListViewHolder = PostListViewHolder.from(parent)
 
-    override fun onBindViewHolder(holder: PostListViewHolder, position: Int) {
-        holder.bind(postList[position])
-    }
+    override fun onBindViewHolder(holder: PostListViewHolder, position: Int) = holder.bind(postList[position])
 
     override fun getItemCount(): Int = postList.size
 

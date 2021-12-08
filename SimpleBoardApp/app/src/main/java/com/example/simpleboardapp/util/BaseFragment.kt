@@ -21,7 +21,7 @@ abstract class BaseFragment<B : ViewDataBinding>(
         savedInstanceState: Bundle?
     ): View? {
         binding = DataBindingUtil.inflate(inflater, layoutId, container, false)
-        binding.lifecycleOwner = viewLifecycleOwner
+        binding.lifecycleOwner = this
 
         init()
 
@@ -30,6 +30,5 @@ abstract class BaseFragment<B : ViewDataBinding>(
 
     abstract fun init()
 
-    protected fun showToast(msg: String) =
-        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+    protected fun makeToast(msg: String) = Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
 }
