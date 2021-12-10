@@ -2,7 +2,8 @@ package com.example.simpleboardapp.util
 
 class Constants {
     companion object {
-        private const val LOCAL_IP = "10.53.68.211"
+        private const val LOCAL_IP = "10.53.68.106"
+
         const val BASE_URL = "http://$LOCAL_IP:3000/"
 
         const val TAG = "Patrick0422"

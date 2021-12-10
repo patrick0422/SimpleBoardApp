@@ -3,7 +3,6 @@ package com.example.simpleboardapp.ui.user.login
 import android.content.Intent
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
 import com.example.simpleboardapp.R
@@ -39,7 +38,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         val password = binding.editPassword.text.toString()
 
         if (email.isBlank() || password.isBlank()) {
-            showToast("정보를 모두 입력해주세요.")
+            makeToast("정보를 모두 입력해주세요.")
             return
         }
 
@@ -55,7 +54,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                     Log.d(TAG, "onLogin: $user")
                     userViewModel.saveUser(user)
 
-                    showToast("로그인 성공!")
+                    makeToast("로그인 성공!")
                     startActivity(Intent(context, MainActivity::class.java))
                     activity?.finish()
                 }
@@ -63,7 +62,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
                     isLoading(false)
 
                     if (response.message!!.contains("End of input at line 1 column 1 path")) {
-                        showToast("계정 정보를 다시 확인해주세요.")
+                        makeToast("계정 정보를 다시 확인해주세요.")
                     } else {
                         Log.d(TAG, "onLogin: ${response.message}")
                     }

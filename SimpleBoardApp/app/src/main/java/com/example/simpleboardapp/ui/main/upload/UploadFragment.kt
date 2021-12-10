@@ -2,15 +2,12 @@ package com.example.simpleboardapp.ui.main.upload
 
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.simpleboardapp.R
 import com.example.simpleboardapp.data.post.PostRequest
 import com.example.simpleboardapp.databinding.FragmentUploadBinding
 import com.example.simpleboardapp.ui.main.MainViewModel
-import com.example.simpleboardapp.ui.main.detail.DetailFragmentArgs
 import com.example.simpleboardapp.util.BaseFragment
 import com.example.simpleboardapp.util.Constants.Companion.TAG
 import com.example.simpleboardapp.util.NetworkResult
@@ -68,10 +65,10 @@ class UploadFragment : BaseFragment<FragmentUploadBinding>(R.layout.fragment_upl
         val tags = processTags(binding.editTags.text.toString().replace(" #", " "))
 
         if (title.isBlank()) {
-            showToast("제목을 입력해주세요.")
+            makeToast("제목을 입력해주세요.")
             return
         } else if (content.isBlank()) {
-            showToast("내용을 입력해주세요.")
+            makeToast("내용을 입력해주세요.")
             return
         }
 
@@ -80,7 +77,7 @@ class UploadFragment : BaseFragment<FragmentUploadBinding>(R.layout.fragment_upl
         mainViewModel.editPostResponse.observe(viewLifecycleOwner, { response ->
             when(response) {
                 is NetworkResult.Success -> {
-                    showToast("성공!")
+                    makeToast("성공!")
                     isLoading(false)
                     activity!!.supportFragmentManager.popBackStack()
                     activity!!.onBackPressed()
@@ -88,7 +85,7 @@ class UploadFragment : BaseFragment<FragmentUploadBinding>(R.layout.fragment_upl
                 }
                 is NetworkResult.Error -> {
                     Log.d(TAG, "editPost: ${response.message!!}")
-                    showToast("글 수정에 실패했습니다.")
+                    makeToast("글 수정에 실패했습니다.")
                     isLoading(false)
                 }
                 is NetworkResult.Loading -> {
@@ -104,10 +101,10 @@ class UploadFragment : BaseFragment<FragmentUploadBinding>(R.layout.fragment_upl
         val tags = processTags(binding.editTags.text.toString())
 
         if (title.isBlank()) {
-            showToast("제목을 입력해주세요.")
+            makeToast("제목을 입력해주세요.")
             return
         } else if (content.isBlank()) {
-            showToast("내용을 입력해주세요.")
+            makeToast("내용을 입력해주세요.")
             return
         }
 
@@ -116,14 +113,14 @@ class UploadFragment : BaseFragment<FragmentUploadBinding>(R.layout.fragment_upl
         mainViewModel.addPostResponse.observe(viewLifecycleOwner, { response ->
             when(response) {
                 is NetworkResult.Success -> {
-                    showToast("성공!")
+                    makeToast("성공!")
                     isLoading(false)
                     activity!!.supportFragmentManager.popBackStack()
                     activity!!.onBackPressed()
                 }
                 is NetworkResult.Error -> {
                     Log.d(TAG, "uploadPost: ${response.message!!}")
-                    showToast("글 작성에 실패했습니다.")
+                    makeToast("글 작성에 실패했습니다.")
                     isLoading(false)
                 }
                 is NetworkResult.Loading -> {

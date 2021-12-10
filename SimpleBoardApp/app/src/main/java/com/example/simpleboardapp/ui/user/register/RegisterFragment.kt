@@ -47,13 +47,13 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
 
         with(registerRequest) {
             if (email.isBlank() || password.isBlank() || confirmPassword.isBlank() || nickname.isBlank()) {
-                showToast("정보를 모두 입력해주세요.")
+                makeToast("정보를 모두 입력해주세요.")
                 return
             } else if (password.length < 8) {
-                showToast("비밀번호는 8자 이상이어야 합니다.")
+                makeToast("비밀번호는 8자 이상이어야 합니다.")
                 return
             } else if (password != confirmPassword) {
-                showToast("비밀번호가 일치하지 않습니다.")
+                makeToast("비밀번호가 일치하지 않습니다.")
                 return
             }
         }
@@ -67,13 +67,13 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding>(R.layout.fragment
                     val user = with(response.data!!) { User(id, nickname, email, password, token, createdAt) }
                     userViewModel.saveUser(user)
 
-                    showToast("회원가입 성공!")
+                    makeToast("회원가입 성공!")
                     startActivity(Intent(context, MainActivity::class.java))
                     activity?.finish()
                 }
                 is NetworkResult.Error -> {
                     isLoading(false)
-                    showToast("회원가입 실패!")
+                    makeToast("회원가입 실패!")
                     Log.d(TAG, "onRegister: ${response.message}")
                 }
                 is NetworkResult.Loading -> {

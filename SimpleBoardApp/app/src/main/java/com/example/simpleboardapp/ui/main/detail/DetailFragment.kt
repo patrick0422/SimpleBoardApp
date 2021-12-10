@@ -25,7 +25,7 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
         binding.buttonAdd.setOnClickListener {
             val comment = binding.editComment.text.toString()
             if (comment.isBlank()) {
-                showToast("댓글을 입력해주세요.")
+                makeToast("댓글을 입력해주세요.")
                 return@setOnClickListener
             }
 
@@ -36,11 +36,11 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
                     is NetworkResult.Success -> {
                         binding.editComment.text.clear()
                         mainViewModel.getPost(args.postId)
-                        showToast("댓글이 등록되었습니다.")
+                        makeToast("댓글이 등록되었습니다.")
                         isLoading(false)
                     }
                     is NetworkResult.Error -> {
-                        showToast("댓글 등록에 실패했습니다.")
+                        makeToast("댓글 등록에 실패했습니다.")
                         isLoading(false)
                     }
                     is NetworkResult.Loading -> isLoading(true)
@@ -57,14 +57,14 @@ class DetailFragment : BaseFragment<FragmentDetailBinding>(R.layout.fragment_det
             mainViewModel.deletePostResponse.observe(this, { response ->
                 when (response) {
                     is NetworkResult.Success -> {
-                        showToast("글이 삭제되었습니다.")
+                        makeToast("글이 삭제되었습니다.")
 
                         isLoading(false)
                         activity!!.supportFragmentManager.popBackStack()
                         activity!!.onBackPressed()
                     }
                     is NetworkResult.Error -> {
-                        showToast("본인이 작성한 글만 삭제할 수 있습니다.")
+                        makeToast("본인이 작성한 글만 삭제할 수 있습니다.")
                         isLoading(false)
                     }
                     is NetworkResult.Loading -> {
